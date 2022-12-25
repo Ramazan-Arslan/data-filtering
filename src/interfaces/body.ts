@@ -26,3 +26,8 @@ export interface Pagination {
   pageCount: number;
   itemsLength: number;
 }
+
+export interface Header {
+  text: string;
+  value: string;
+}
