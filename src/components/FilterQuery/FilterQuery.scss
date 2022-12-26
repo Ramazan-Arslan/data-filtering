@@ -1,0 +1,11 @@
+.filter-query {
+  &__filter {
+    max-height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 50px;
+    width: 75%;
+  }
+}

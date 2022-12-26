@@ -1,0 +1,21 @@
+<div class="filter-query" data-app>
+  <div class="filter-query__filter">
+    <p>{{filterName}}</p>
+    <v-select
+      class="filter-query__dropdown"
+      v-model="selectedFilterCondition"
+      label="Condition"
+      filled
+      dense
+      solo
+      backgroundColor="#aaa"
+      color="#aaa"
+      item-color="#666"
+      :items="filterConditions"
+      item-text="text"
+      single-line
+    ></v-select>
+    <v-text-field v-model="filterInput" placeholder="Condition" dense outlined></v-text-field>
+    <v-btn color="error" @click="removeFilter">Remove </v-btn>
+  </div>
+</div>
