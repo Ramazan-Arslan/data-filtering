@@ -1,3 +1,21 @@
 <div class="home-page">
-  <ShowDocuments></ShowDocuments>
+  <v-col cols="2">
+    <v-select
+      class="show-documents__dropdown"
+      v-model="selectedFilterOption"
+      label="Filter"
+      :items="possibleFilterOptions"
+      item-text="text"
+      single-line
+      filled
+      dense
+      solo
+      backgroundColor="#aaa"
+      color="#aaa"
+    ></v-select>
+  </v-col>
+  <div v-for="filter in selectedFilters">
+    <FilterQuery :filterName="filter"></FilterQuery>
+  </div>
+  <ShowDocuments @filter-options="filterOptionsHandler"></ShowDocuments>
 </div>
