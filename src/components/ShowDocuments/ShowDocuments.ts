@@ -1,11 +1,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import fetchData from '@/api/api';
-import { RequestBody, Pagination, Header } from '@/interfaces/body';
+import { RequestBody, Pagination, Header, Document, Operations } from '@/interfaces/body';
 import { TABLE } from '@/enums/Table';
 @Component({})
 export default class ShowDocuments extends Vue {
   public headers: Header[] = [];
-  public items: any = [];
+  public items: Document[] = [];
+  public filterOptions: string[] = [];
+
   private requestBody: RequestBody = {
     collection: 'analytics',
     database: 'juno',
@@ -37,16 +39,26 @@ export default class ShowDocuments extends Vue {
     }
   }
 
-  private createTableContents(rows: object[]) {
+  private createTableContents(rows: Document[]) {
     for (let i = 0; i < rows.length; i++) {
       this.items.push(rows[i]);
     }
+  }
+
+  private createFilterOptions(headers: string[]) {
+    for (let i = 0; i < headers.length; i++) {
+      if (headers[i] !== '_id') {
+        this.filterOptions.push(headers[i]);
+      }
+    }
+    this.$emit('filter-options', this.filterOptions);
   }
 
   private async findMultipleDocuments() {
     const response = await fetchData(this.requestBody);
     const headers = Object.keys(response.documents[0]);
     this.createTableHeaders(headers);
+    this.createFilterOptions(headers);
     this.createTableContents(response.documents);
   }
 }

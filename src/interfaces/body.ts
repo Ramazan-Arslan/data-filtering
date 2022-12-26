@@ -1,3 +1,17 @@
+export interface Document {
+  event_data: string;
+  event_name: string;
+  event_params_key: string;
+  user_properties_value_string_value: string;
+  device_operating_system: string;
+  app_info_version: string;
+  event_date: string;
+  geo_country: string;
+  geo_city: string;
+  user_pseudo_id: string;
+  _id?: string;
+}
+
 export interface Filter {
   device_operating_system: Operations;
 }

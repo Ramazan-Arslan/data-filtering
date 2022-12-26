@@ -3,6 +3,7 @@
     v-if="headers.length > 0"
     :headers="headers"
     :items="items"
+    disable-sort
     :items-per-page="50"
     @pagination="checkPageNumber"
     class="elevation-1"
