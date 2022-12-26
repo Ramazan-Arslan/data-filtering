@@ -8,6 +8,6 @@ export default class FilterQuery extends Vue {
   public filterInput = '';
 
   public removeFilter(): void {
-    console.log('removeFilter');
+    this.$emit('delete-selected-filter', this.filterName);
   }
 }

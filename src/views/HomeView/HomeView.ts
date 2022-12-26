@@ -21,4 +21,10 @@ export default class HomeView extends Vue {
   protected filterOptionsHandler(filterOptions: string[]) {
     this.possibleFilterOptions = filterOptions;
   }
+
+  protected deletedFilterHandler(deletedFilterName: string) {
+    const deletedFilterIndex = this.selectedFilters.indexOf(deletedFilterName);
+    this.selectedFilters.splice(deletedFilterIndex, 1);
+    this.possibleFilterOptions.push(deletedFilterName);
+  }
 }
