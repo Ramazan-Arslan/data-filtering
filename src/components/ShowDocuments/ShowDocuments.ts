@@ -1,6 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import fetchData from '@/api/api';
-import { RequestBody, Pagination, Header, Document, Operations, Filter } from '@/interfaces/body';
+import { RequestBody, Pagination, Header, Document, Filter } from '@/interfaces/body';
 import { TABLE } from '@/enums/Table';
 @Component({})
 export default class ShowDocuments extends Vue {
