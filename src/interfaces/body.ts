@@ -20,7 +20,7 @@ export interface Filter {
 }
 
 export interface Operations {
-  [key: string]: string;
+  [key: string]: string | object;
 }
 
 export interface RequestBody {

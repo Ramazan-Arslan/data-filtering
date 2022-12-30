@@ -12,7 +12,13 @@ export default class FilterQuery extends Vue {
 
   @Watch('filterInput') filterInputChangeHandler() {
     if (this.selectedFilterCondition.length > 0) {
-      this.filterCondition[this.selectedFilterCondition] = this.filterInput;
+      if (this.filterName === 'event_date') {
+        const date = { $date: this.filterInput };
+        this.filterCondition[this.selectedFilterCondition] = date;
+      } else {
+        this.filterCondition[this.selectedFilterCondition] = this.filterInput;
+      }
+
       this.filterQuery[this.filterName] = this.filterCondition;
       this.$emit('filter-query', this.filterQuery);
     }
