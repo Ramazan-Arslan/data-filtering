@@ -1,11 +1,12 @@
 <div class="show-documents" data-app>
-  <v-btn color="primary" @click="updateData">Run Query</v-btn>
+  <v-btn v-if="showQueryButton" class="show-documents__button" color="primary" @click="updateData">Run Query</v-btn>
   <v-data-table
     v-if="headers.length > 0"
     :headers="headers"
     :items="items"
     disable-sort
     :items-per-page="50"
+    :footer-props="{'items-per-page-options': [50]}"
     @pagination="checkPageNumber"
     class="elevation-1"
   ></v-data-table>

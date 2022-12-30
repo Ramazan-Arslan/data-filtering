@@ -13,6 +13,7 @@ export default class HomeView extends Vue {
   public selectedFilterOption = '';
   public selectedFilters: string[] = [];
   public filter: Filter = {};
+  public showQueryButton = false;
 
   @Watch('selectedFilterOption') selectedFilterOptionChangeHandler() {
     this.selectedFilters.push(this.selectedFilterOption);
@@ -22,6 +23,7 @@ export default class HomeView extends Vue {
 
   protected filterQueryHandler(filterQuery: Filter) {
     this.filter = Object.assign(this.filter, filterQuery);
+    this.checkFilterSize();
   }
 
   protected filterOptionsHandler(filterOptions: string[]) {
@@ -31,6 +33,12 @@ export default class HomeView extends Vue {
   protected deletedFilterHandler(deletedFilterName: string) {
     const deletedFilterIndex = this.selectedFilters.indexOf(deletedFilterName);
     this.selectedFilters.splice(deletedFilterIndex, 1);
+    delete this.filter[deletedFilterName];
     this.possibleFilterOptions.push(deletedFilterName);
+    this.checkFilterSize();
+  }
+
+  protected checkFilterSize() {
+    this.showQueryButton = Object.keys(this.filter).length > 0 ? true : false;
   }
 }

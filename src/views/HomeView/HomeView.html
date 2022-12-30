@@ -21,5 +21,9 @@
       @delete-selected-filter="deletedFilterHandler"
     ></FilterQuery>
   </div>
-  <ShowDocuments @filter-options="filterOptionsHandler" :filter="filter"></ShowDocuments>
+  <ShowDocuments
+    @filter-options="filterOptionsHandler"
+    :filter="filter"
+    :showQueryButton="showQueryButton"
+  ></ShowDocuments>
 </div>

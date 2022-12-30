@@ -1,10 +1,11 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import fetchData from '@/api/api';
 import { RequestBody, Pagination, Header, Document, Operations, Filter } from '@/interfaces/body';
 import { TABLE } from '@/enums/Table';
 @Component({})
 export default class ShowDocuments extends Vue {
   @Prop() public filter!: Filter;
+  @Prop() public showQueryButton?: boolean;
   public headers: Header[] = [];
   public items: Document[] = [];
   public filterOptions: string[] = [];
@@ -15,8 +16,14 @@ export default class ShowDocuments extends Vue {
     dataSource: 'Cluster0',
     limit: TABLE.MAX_ITEM_PER_PAGE,
     skip: 0,
-    filter: this.filter,
+    filter: {},
   };
+
+  @Watch('showQueryButton') buttonStatusChangeHandler() {
+    if (!this.showQueryButton) {
+      this.updateData();
+    }
+  }
 
   protected async mounted() {
     await this.findMultipleDocuments();
