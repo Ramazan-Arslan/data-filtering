@@ -1,19 +1,21 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import fetchData from '@/api/api';
-import { RequestBody, Pagination, Header, Document, Operations } from '@/interfaces/body';
+import { RequestBody, Pagination, Header, Document, Operations, Filter } from '@/interfaces/body';
 import { TABLE } from '@/enums/Table';
 @Component({})
 export default class ShowDocuments extends Vue {
+  @Prop() public filter!: Filter;
   public headers: Header[] = [];
   public items: Document[] = [];
   public filterOptions: string[] = [];
 
-  private requestBody: RequestBody = {
+  public requestBody: RequestBody = {
     collection: 'analytics',
     database: 'juno',
     dataSource: 'Cluster0',
     limit: TABLE.MAX_ITEM_PER_PAGE,
     skip: 0,
+    filter: this.filter,
   };
 
   protected async mounted() {
@@ -25,6 +27,13 @@ export default class ShowDocuments extends Vue {
       this.requestBody.skip = paginationValue.pageStop / TABLE.MAX_ITEM_PER_PAGE;
       await this.findMultipleDocuments();
     }
+  }
+
+  protected async updateData() {
+    this.requestBody['filter'] = this.filter;
+    this.requestBody.skip = 0;
+    const response = await fetchData(this.requestBody);
+    this.createTableContents(response.documents, true);
   }
 
   private createTableHeaders(headers: string[]) {
@@ -39,7 +48,10 @@ export default class ShowDocuments extends Vue {
     }
   }
 
-  private createTableContents(rows: Document[]) {
+  private createTableContents(rows: Document[], resetItems = false) {
+    if (resetItems) {
+      this.items = [];
+    }
     for (let i = 0; i < rows.length; i++) {
       this.items.push(rows[i]);
     }

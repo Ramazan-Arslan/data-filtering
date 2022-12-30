@@ -1,4 +1,5 @@
 <div class="show-documents" data-app>
+  <v-btn color="primary" @click="updateData">Run Query</v-btn>
   <v-data-table
     v-if="headers.length > 0"
     :headers="headers"

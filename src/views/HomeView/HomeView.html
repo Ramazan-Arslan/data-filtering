@@ -15,7 +15,11 @@
     ></v-select>
   </v-col>
   <div v-for="filter in selectedFilters">
-    <FilterQuery :filterName="filter" @delete-selected-filter="deletedFilterHandler"></FilterQuery>
+    <FilterQuery
+      :filterName="filter"
+      @filter-query="filterQueryHandler"
+      @delete-selected-filter="deletedFilterHandler"
+    ></FilterQuery>
   </div>
-  <ShowDocuments @filter-options="filterOptionsHandler"></ShowDocuments>
+  <ShowDocuments @filter-options="filterOptionsHandler" :filter="filter"></ShowDocuments>
 </div>

@@ -1,6 +1,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import ShowDocuments from '@/components/ShowDocuments/ShowDocuments.vue';
 import FilterQuery from '@/components/FilterQuery/FilterQuery.vue';
+import { Filter } from '@/interfaces/body';
 @Component({
   components: {
     ShowDocuments,
@@ -11,11 +12,16 @@ export default class HomeView extends Vue {
   public possibleFilterOptions: string[] = [];
   public selectedFilterOption = '';
   public selectedFilters: string[] = [];
+  public filter: Filter = {};
 
   @Watch('selectedFilterOption') selectedFilterOptionChangeHandler() {
     this.selectedFilters.push(this.selectedFilterOption);
     const selectedFilterIndex = this.possibleFilterOptions.indexOf(this.selectedFilterOption);
     this.possibleFilterOptions.splice(selectedFilterIndex, 1);
+  }
+
+  protected filterQueryHandler(filterQuery: Filter) {
+    this.filter = Object.assign(this.filter, filterQuery);
   }
 
   protected filterOptionsHandler(filterOptions: string[]) {

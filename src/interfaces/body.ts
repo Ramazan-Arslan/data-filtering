@@ -12,15 +12,15 @@ export interface Document {
   _id?: string;
 }
 
+export interface x {
+  [key: string]: Filter;
+}
 export interface Filter {
-  device_operating_system: Operations;
+  [key: string]: Operations;
 }
 
 export interface Operations {
-  $eq: string;
-  $ne: string;
-  $qt: string;
-  $lt: string;
+  [key: string]: string;
 }
 
 export interface RequestBody {
